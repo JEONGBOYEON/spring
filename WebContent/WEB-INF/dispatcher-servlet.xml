@@ -15,6 +15,25 @@
 	<property name="suffix" value=".jsp"/>
 </bean>
 
+<!-- 파일 업로드 -->
+<bean id="multipartResolver"
+class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+	<property name="defaultEncoding" value="UTF-8" />
+	<property name="maxUploadSize" value="10000000"/>
+</bean>
+
+
+<!-- 내가 어노케이션을 쓰겠다 라고 명시! -->
+<context:component-scan base-package="*" scoped-proxy="no"/>
+
+<!-- 어노케이션 클래스 불러오기 -->
+<bean
+class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
+p:alwaysUseFullPath="true">
+
+<property name="order" value="1"/>
+
+</bean>
 
 
 
@@ -35,7 +54,7 @@ class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 
 	<!-- 만약 어노테이션을 쓴다면 무조건 spring은 어노테이션을 1순위로 생각하는데
 	'order'를 '1'로 주면 "현재의 bean"(SimpleUrlMapping)을 어노테이션 보다 1순위로 두고 처리하라!! -->
-	<property name="order" value="1"/>
+	<property name="order" value="2"/>
 
 	<!-- 
 	alwaysUseFullPath =>
@@ -60,6 +79,12 @@ class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 	</property>
 </bean>
 
+
+<!-- 이걸 어노케이션 사용시 안해두 됨 
+<bean name="testController" class="com.ano.TestController"/>
+ -->
+ 
+ 
 <!-- ListController를 제외한 나머지 컨트롤러의 ListCommand(dto)를 넘겨줌(객체생성?) -->
 <bean name="listFormController" class="com.test.ListFormController"/>
 <bean name="listController" class="com.test.ListController"/>
