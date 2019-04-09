@@ -5,9 +5,4 @@
 	String cp = request.getContextPath();
 %>
 
-
-<h1>메인이다</h1>
-
-1.<a href="<%=cp%>/demo/write.action">created</a><br/>
-2.<a href="<%=cp%>/demo/save.action">save</a><br/>
-3.<a href="<%=cp%>/demo/demo.action">demo</a><br/>
+<h1>리스트 입니다.</h1>
