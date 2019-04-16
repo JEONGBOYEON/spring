@@ -155,6 +155,23 @@ public class FileController {
 		
 		return null;
 	}
+	
+	@RequestMapping(value="/file/deleted.action",method={RequestMethod.POST,RequestMethod.GET})
+	public String delet(HttpServletRequest request,HttpSession session,HttpServletResponse response,int num) throws Exception {
 		
+		
+		String root = session.getServletContext().getRealPath("/");
+		String savepath = root + File.separator + "pds" + File.separator + "saveFile";
+		
+		//saveFile을 보내서 삭제해줘야 되니까 일단 num을 가지고 해당 파일의 정보를 모두 읽어온다
+		FileCommand dto = (FileCommand)dao.getReadData("file.readData",num);
+		
+		String saveFileName = dto.getSaveFileName();
+		FileManager.doFileDelete(saveFileName, savepath);
+		
+		dao.delteData("file.deleteData",num);
+
+		return "redirect:/file/list.action";
+	}
 
 }
